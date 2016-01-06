@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DefinitelyTyped.NET</id>
+    <version>1.0.0</version>
+    <title>DefinitelyTyped.NET</title>
+    <authors>Glenn Dierckx</authors>
+    <owners>GlennDierckx</owners>
+    <!--<licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>-->
+    <projectUrl>https://github.com/Smartasses/DefinitelyTyped.NET</projectUrl>
+    <!--<iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>DefinitelyTyped.NET is a utility that can generate typescript classes, interfaces and enums, based on .net types.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>TypeScript DefinitelyTyped DefinitelyTyped.NET Generation Contracts SmartAsses</tags>
+  </metadata>
+</package>

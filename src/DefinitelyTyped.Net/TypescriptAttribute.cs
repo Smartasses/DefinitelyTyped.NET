@@ -1,6 +1,6 @@
 using System;
 
-namespace TypeScriptGeneration
+namespace DefinitelyTypedNet
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface | AttributeTargets.Enum)]
     public class TypeScriptAttribute : Attribute

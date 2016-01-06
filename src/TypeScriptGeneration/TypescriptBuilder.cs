@@ -24,8 +24,7 @@ namespace TypeScriptGeneration
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine();
             stringBuilder.AppendLine("module TypeScriptBuilder {");
-            stringBuilder.AppendLine("\texport interface IDictionaryString<TValue>");
-            stringBuilder.AppendLine("\t{");
+            stringBuilder.AppendLine("\texport interface IDictionaryString<TValue> {");
             stringBuilder.AppendLine("\t\t[key: string]: TValue;");
             stringBuilder.AppendLine("\t}");
             stringBuilder.AppendLine("}");
@@ -39,7 +38,7 @@ namespace TypeScriptGeneration
                     attribute
                 }).ToList().ForEach(x => GenerateTypescript(stringBuilder, x.type, x.attribute, camelCase));
                 stringBuilder.AppendLine();
-                stringBuilder.Append("}");
+                stringBuilder.AppendLine("}");
             }
             return stringBuilder.ToString();
         }
@@ -86,13 +85,13 @@ namespace TypeScriptGeneration
         {
             stringBuilder.AppendLine();
             stringBuilder.AppendFormat("\texport enum {0}", type.Name);
-            stringBuilder.AppendLine("{");
+            stringBuilder.AppendLine(" {");
             foreach (int enumValue in type.GetEnumValues())
             {
                 var name = type.GetEnumName(enumValue);
-                stringBuilder.AppendLine(string.Format("{0} = {1},", name, enumValue));
+                stringBuilder.AppendLine(string.Format("\t\t{0} = {1},", name, enumValue));
             }
-            stringBuilder.AppendLine("}");
+            stringBuilder.Append("\t}");
         }
 
         private static void GenerateClass(StringBuilder stringBuilder, Type type, TypeScriptAttribute attribute, bool camelCase)
@@ -107,13 +106,13 @@ namespace TypeScriptGeneration
             foreach (var propertyInfo in GetAllProperties(type, true))
             {
                 stringBuilder.AppendLine();
-                stringBuilder.AppendFormat("\t\tpublic {0}:{1};", camelCase ? ToCamelCase(propertyInfo.Name) : propertyInfo.Name,
+                stringBuilder.AppendFormat("\t\tpublic {0}: {1};", camelCase ? ToCamelCase(propertyInfo.Name) : propertyInfo.Name,
                     TypeScriptConvert.ToScriptType(propertyInfo.PropertyType));
             }
             if (attribute.GenerateTypeProperty)
             {
                 stringBuilder.AppendLine();
-                stringBuilder.AppendFormat("\t\tpublic type:string = \"{0}\";", type.Name);
+                stringBuilder.AppendFormat("\t\tpublic type: string = \"{0}\";", type.Name);
             }
             stringBuilder.AppendLine();
             stringBuilder.Append("\t}");
@@ -145,7 +144,7 @@ namespace TypeScriptGeneration
             foreach (var propertyInfo in GetAllProperties(type, false))
             {
                 stringBuilder.AppendLine();
-                stringBuilder.AppendFormat("\t\t{0}:{1};", camelCase ? ToCamelCase(propertyInfo.Name) : propertyInfo.Name,
+                stringBuilder.AppendFormat("\t\t{0}: {1};", camelCase ? ToCamelCase(propertyInfo.Name) : propertyInfo.Name,
                     TypeScriptConvert.ToScriptType(propertyInfo.PropertyType));
             }
 
@@ -156,8 +155,8 @@ namespace TypeScriptGeneration
                     stringBuilder.AppendLine();
                     var parameters = methodInfo.GetParameters();
                     var parametersAsTs =
-                        parameters.Select(x => string.Format("{0}:{1}", x.Name, TypeScriptConvert.ToScriptType(x.ParameterType)));
-                    stringBuilder.AppendFormat("\t\t{0}({1}):{2};"
+                        parameters.Select(x => string.Format("{0}: {1}", x.Name, TypeScriptConvert.ToScriptType(x.ParameterType)));
+                    stringBuilder.AppendFormat("\t\t{0}({1}): {2};"
                         , camelCase ? ToCamelCase(methodInfo.Name) : methodInfo.Name
                         , string.Join(", ", parametersAsTs)
                         , TypeScriptConvert.ToScriptType(methodInfo.ReturnType));

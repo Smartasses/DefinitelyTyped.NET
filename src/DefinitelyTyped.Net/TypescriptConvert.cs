@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Linq;
 
-namespace TypeScriptGeneration
+namespace DefinitelyTypedNet
 {
     class TypeScriptConvert
     {

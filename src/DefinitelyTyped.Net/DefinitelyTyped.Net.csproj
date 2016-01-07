@@ -7,8 +7,8 @@
     <ProjectGuid>{11B7312B-16B0-4644-AF1B-BE834328D0BC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TypeScriptGeneration</RootNamespace>
-    <AssemblyName>TypeScriptGeneration</AssemblyName>
+    <RootNamespace>DefinitelyTypedNet</RootNamespace>
+    <AssemblyName>DefinitelyTyped.Net</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -60,7 +60,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="TypeScriptGeneration.nuspec" />
+    <None Include="DefinitelyTyped.Net.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -57,13 +57,13 @@ namespace DefinitelyTypedNet
                     var type = enumerable.GetGenericArguments()[0];
                     return String.Format("Array<{0}>", ToScriptType(type));
                 }
-                else if (typescriptAttributes != null && (typescriptAttributes.GenerateClass || actualType.IsEnum))
+                else if (typescriptAttributes != null && (actualType.IsClass || actualType.IsEnum))
                 {
                     typescriptType = actualType.FullName;
                 }
-                else if (typescriptAttributes != null && typescriptAttributes.GenerateInterface)
+                else if (typescriptAttributes != null && actualType.IsInterface)
                 {
-                    typescriptType = String.Format("{0}.I{1}", actualType.Namespace, actualType.Name);
+                    typescriptType = String.Format("{0}.{1}", actualType.Namespace, actualType.Name);
                 }
                 else
                 {

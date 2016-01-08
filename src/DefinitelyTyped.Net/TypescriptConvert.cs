@@ -3,18 +3,16 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Newtonsoft.Json.Linq;
 
 namespace DefinitelyTypedNet
 {
     class TypeScriptConvert
     {
         private static readonly ConcurrentDictionary<Type, string> Mapping;
-
+        private static string[] BuiltInTypes = new[] { Boolean, String, Number, Any, Date, Void };
         static TypeScriptConvert()
         {
-            Mapping = new ConcurrentDictionary<Type, string>();
-            Mapping.TryAdd(typeof(JToken), Any);
+            Mapping = new ConcurrentDictionary<Type, string>();           
             Mapping.TryAdd(typeof(bool), Boolean);
             Mapping.TryAdd(typeof(void), Void);
             new[]
@@ -24,6 +22,18 @@ namespace DefinitelyTypedNet
             }.ToList().ForEach(x => Mapping.TryAdd(x, Number));
             new[] { typeof(DateTime), typeof(DateTimeOffset) }.ToList().ForEach(x => Mapping.TryAdd(x, Date));
             new[] { typeof(string), typeof(Guid), typeof(TimeSpan), typeof(byte[]) }.ToList().ForEach(x => Mapping.TryAdd(x, String));
+        }
+
+        public static void AddTypeMapping(Type t, string builtInType)
+        {
+            if(BuiltInTypes.Contains(builtInType))
+            {
+                Mapping.TryAdd(t, builtInType);
+            }
+            else
+            {
+                throw new InvalidOperationException("Added an invalid type");
+            }
         }
 
         public const string Boolean = "boolean";

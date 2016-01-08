@@ -23,6 +23,9 @@ namespace DefinitelyTypedNet
 
             [Option('c', "camelcase", Required = false, HelpText = "Use camelcase (default: false)", Default = true)]
             public bool CamelCase { get; set; }
+
+            [Option('t', "typemapping", Required = false, HelpText ="Map types to default typescript files using Typename|buildintype",Separator = ';')]
+            public IEnumerable<string> BuiltinTypeMappings { get; set; }
         }
 
         public static int Main(params string[] args)
@@ -47,6 +50,13 @@ namespace DefinitelyTypedNet
             Console.WriteLine("Assemblies to parse: {0}", string.Join(",", options.InputFiles.ToArray()));
             Console.WriteLine("Output file: " + options.Ouput);
             Console.WriteLine("Camelcase: " + options.CamelCase);
+
+            foreach(var typeMap in options.BuiltinTypeMappings)
+            {
+                var parsedMap = typeMap.Split('|');
+                TypeScriptConvert.AddTypeMapping(Type.GetType(parsedMap[0]), parsedMap[1]);
+            }
+
             var assemblies = options.InputFiles.Select(Assembly.LoadFrom).ToArray();
 
             var typescript = options.CamelCase

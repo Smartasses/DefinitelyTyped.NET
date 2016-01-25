@@ -70,11 +70,11 @@ namespace DefinitelyTypedNet
             }
             else
             {
-                if (attribute.GenerateInterface)
+                if (type.IsInterface)
                 {
                     GenerateInterface(stringBuilder, type, attribute, camelCase);
                 }
-                if (attribute.GenerateClass)
+                if (type.IsClass)
                 {
                     GenerateClass(stringBuilder, type, attribute, camelCase);
                 }
@@ -98,9 +98,11 @@ namespace DefinitelyTypedNet
         {
             stringBuilder.AppendLine();
             stringBuilder.AppendFormat("\texport class {0}", type.Name);
-            if (attribute.GenerateInterface)
+
+            var interfaces = type.GetInterfaces().Where(x => x.GetCustomAttribute<TypeScriptAttribute>() != null);
+            if(interfaces.Any())
             {
-                stringBuilder.AppendFormat(" implements I{0}", type.Name);
+                stringBuilder.AppendFormat(" implements {0}", string.Join(",", interfaces.Select(x => x.Name)));
             }
             stringBuilder.Append(" {");
             foreach (var propertyInfo in GetAllProperties(type, true))
@@ -122,7 +124,7 @@ namespace DefinitelyTypedNet
             bool camelCase)
         {
             stringBuilder.AppendLine();
-            stringBuilder.AppendFormat("\texport interface I{0}", type.Name);
+            stringBuilder.AppendFormat("\texport interface {0}", type.Name);
             var extendingInterfaces = new List<string>();
             if (type.BaseType != null)
             {
@@ -130,10 +132,7 @@ namespace DefinitelyTypedNet
                     type.BaseType.GetCustomAttributes<TypeScriptAttribute>().OfType<TypeScriptAttribute>().FirstOrDefault();
                 if (baseAttribute != null)
                 {
-                    if (baseAttribute.GenerateInterface)
-                    {
-                        extendingInterfaces.Add(string.Format("{0}.I{1}", type.BaseType.Namespace, type.BaseType.Name));
-                    }
+                    extendingInterfaces.Add(string.Format("{0}.{1}", type.BaseType.Namespace, type.BaseType.Name));
                 }
             }
             if (extendingInterfaces.Any())
@@ -147,21 +146,7 @@ namespace DefinitelyTypedNet
                 stringBuilder.AppendFormat("\t\t{0}: {1};", camelCase ? ToCamelCase(propertyInfo.Name) : propertyInfo.Name,
                     TypeScriptConvert.ToScriptType(propertyInfo.PropertyType));
             }
-
-            if (attribute.GenerateInterfaceMethods)
-            {
-                foreach (var methodInfo in type.GetMethods())
-                {
-                    stringBuilder.AppendLine();
-                    var parameters = methodInfo.GetParameters();
-                    var parametersAsTs =
-                        parameters.Select(x => string.Format("{0}: {1}", x.Name, TypeScriptConvert.ToScriptType(x.ParameterType)));
-                    stringBuilder.AppendFormat("\t\t{0}({1}): {2};"
-                        , camelCase ? ToCamelCase(methodInfo.Name) : methodInfo.Name
-                        , string.Join(", ", parametersAsTs)
-                        , TypeScriptConvert.ToScriptType(methodInfo.ReturnType));
-                }
-            }
+            
             stringBuilder.AppendLine();
             stringBuilder.Append("\t}");
         }

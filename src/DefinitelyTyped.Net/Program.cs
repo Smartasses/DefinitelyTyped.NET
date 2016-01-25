@@ -15,14 +15,17 @@ namespace DefinitelyTypedNet
         {
             [Option('i', "input", Required = true,
               HelpText = "Input assemblies.")]
-            public IEnumerable<string> InputFiles { get; set; }
+            public IEnumerable<string> InputAssemblies { get; set; }
 
-            [Option('o', "output", Required = true, HelpText = "Ouput path for the .ts file")]
-            public string Ouput { get; set; }
+            [Option('o', "output", Required = true, HelpText = @"Ouput fully path for the .ts file (c:\myfolder\generated.ts)")]
+            public string OutputFile { get; set; }
 
 
             [Option('c', "camelcase", Required = false, HelpText = "Use camelcase (default: false)", Default = true)]
             public bool CamelCase { get; set; }
+
+            [Option('t', "typemapping", Required = false, HelpText ="Map types to default typescript files using Typename@buildintype",Separator = ';')]
+            public IEnumerable<string> BuiltinTypeMappings { get; set; }
         }
 
         public static int Main(params string[] args)
@@ -44,16 +47,25 @@ namespace DefinitelyTypedNet
 
         private static int GenerateTypescript(Options options)
         {
-            Console.WriteLine("Assemblies to parse: {0}", string.Join(",", options.InputFiles.ToArray()));
-            Console.WriteLine("Output file: " + options.Ouput);
+            Console.WriteLine("Assemblies to parse: {0}", string.Join(",", options.InputAssemblies.ToArray()));
+            Console.WriteLine("Output file: " + options.OutputFile);
             Console.WriteLine("Camelcase: " + options.CamelCase);
-            var assemblies = options.InputFiles.Select(Assembly.LoadFrom).ToArray();
+
+            foreach(var typeMap in options.BuiltinTypeMappings)
+            {
+                var parsedMap = typeMap.Split('@');
+                Console.WriteLine("Adding default type for {0} mapping on {1}", parsedMap[0], parsedMap[1]);           
+                
+                TypeScriptConvert.AddTypeMapping(Type.GetType(parsedMap[0], true, true), parsedMap[1]);
+            }
+
+            var assemblies = options.InputAssemblies.Select(Assembly.LoadFrom).ToArray();
 
             var typescript = options.CamelCase
                 ? TypeScriptBuilder.GetTypescriptContractsCamelCase(assemblies)
                 : TypeScriptBuilder.GetTypescriptContracts(assemblies);
 
-            File.WriteAllText(options.Ouput, typescript, Encoding.UTF8);
+            File.WriteAllText(options.OutputFile, typescript, Encoding.UTF8);
             return 0;
         }
     }

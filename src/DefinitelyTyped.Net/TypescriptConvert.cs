@@ -9,10 +9,10 @@ namespace DefinitelyTypedNet
     class TypeScriptConvert
     {
         private static readonly ConcurrentDictionary<Type, string> Mapping;
-
+        private static string[] BuiltInTypes = new[] { Boolean, String, Number, Any, Date, Void };
         static TypeScriptConvert()
         {
-            Mapping = new ConcurrentDictionary<Type, string>();
+            Mapping = new ConcurrentDictionary<Type, string>();           
             Mapping.TryAdd(typeof(bool), Boolean);
             Mapping.TryAdd(typeof(void), Void);
             new[]
@@ -22,6 +22,18 @@ namespace DefinitelyTypedNet
             }.ToList().ForEach(x => Mapping.TryAdd(x, Number));
             new[] { typeof(DateTime), typeof(DateTimeOffset) }.ToList().ForEach(x => Mapping.TryAdd(x, Date));
             new[] { typeof(string), typeof(Guid), typeof(TimeSpan), typeof(byte[]) }.ToList().ForEach(x => Mapping.TryAdd(x, String));
+        }
+
+        public static void AddTypeMapping(Type t, string builtInType)
+        {
+            if(BuiltInTypes.Contains(builtInType))
+            {
+                Mapping.TryAdd(t, builtInType);
+            }
+            else
+            {
+                throw new InvalidOperationException("Added an invalid type");
+            }
         }
 
         public const string Boolean = "boolean";
@@ -55,13 +67,13 @@ namespace DefinitelyTypedNet
                     var type = enumerable.GetGenericArguments()[0];
                     return String.Format("Array<{0}>", ToScriptType(type));
                 }
-                else if (typescriptAttributes != null && (typescriptAttributes.GenerateClass || actualType.IsEnum))
+                else if (typescriptAttributes != null && (actualType.IsClass || actualType.IsEnum))
                 {
                     typescriptType = actualType.FullName;
                 }
-                else if (typescriptAttributes != null && typescriptAttributes.GenerateInterface)
+                else if (typescriptAttributes != null && actualType.IsInterface)
                 {
-                    typescriptType = String.Format("{0}.I{1}", actualType.Namespace, actualType.Name);
+                    typescriptType = String.Format("{0}.{1}", actualType.Namespace, actualType.Name);
                 }
                 else
                 {

@@ -15,4 +15,21 @@
     <copyright>Copyright 2016</copyright>
     <tags>TypeScript DefinitelyTyped DefinitelyTyped.NET Generation Contracts SmartAsses</tags>
   </metadata>
+  <files>
+    <!-- 4.5 -->
+    <file src="bin\Release\net45\DefinitelyTyped.Net.dll" target="lib\net45\DefinitelyTyped.Net.dll" />
+    <file src="bin\Release\net45\DefinitelyTyped.Net.pdb" target="lib\net45\DefinitelyTyped.Net.pdb" />
+    <!-- 4.5.1 -->
+    <file src="bin\Release\net451\DefinitelyTyped.Net.dll" target="lib\net451\DefinitelyTyped.Net.dll" />
+    <file src="bin\Release\net451\DefinitelyTyped.Net.pdb" target="lib\net451\DefinitelyTyped.Net.pdb" />
+    <!-- 4.5.2 -->
+    <file src="bin\Release\net452\DefinitelyTyped.Net.dll" target="lib\net452\DefinitelyTyped.Net.dll" />
+    <file src="bin\Release\net452\DefinitelyTyped.Net.pdb" target="lib\net452\DefinitelyTyped.Net.pdb" />
+    <!-- 4.6 -->
+    <file src="bin\Release\net46\DefinitelyTyped.Net.dll" target="lib\net46\DefinitelyTyped.Net.dll" />
+    <file src="bin\Release\net46\DefinitelyTyped.Net.pdb" target="lib\net46\DefinitelyTyped.Net.pdb" />
+    <!-- 4.6.1 -->
+    <file src="bin\Release\net461\DefinitelyTyped.Net.dll" target="lib\net461\DefinitelyTyped.Net.dll" />
+    <file src="bin\Release\net461\DefinitelyTyped.Net.pdb" target="lib\net461\DefinitelyTyped.Net.pdb" />
+  </files>
 </package>

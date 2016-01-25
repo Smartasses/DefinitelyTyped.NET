@@ -1,6 +1,6 @@
 # DefinitelyTyped.NET
 
-DefinitelyTyped.NET is a library that helps you with sharing your entity-model between your .NET-server and your TypeScript-client
+DefinitelyTyped.NET is a library that helps you with sharing your entity-model between your .NET-server and your TypeScript-client.
 
 ## Getting started
 ### Installing the nuget-package
@@ -14,10 +14,10 @@ The nuget-package contains an executable. This executable contains a TypeScript-
 We want to generate and re-generate our TypeScript-types every time we change our .NET-types. 
 The Post-Build-event seems the right moment to generate our types. The command you need to run for generating your types is the following:
 ```
-if $(ConfigurationName) == Debug $(SolutionDir)packages\<PackageName>\lib\<.NET Version>\DefinitelyTyped.Net.exe -i "$(TargetPath)" -o "$(SolutionDir)ProjectName\<Directory>\<GeneratedFileName>.ts"
+if $(ConfigurationName) == Debug $(SolutionDir)<ProjectName>\bin\DefinitelyTyped.Net.exe -i "$(TargetPath)" -o "$(SolutionDir)<ProjectName>\<Directory>\<GeneratedFileName>.ts"
 ```
-An example of the command with the current build of the time of writing this article would be:
+An example of the command would be:
 ```
-if $(ConfigurationName) == Debug $(SolutionDir)packages\DefinitelyTyped.NET 0.1.16025.2-continuous\lib\net452\DefinitelyTyped.Net.exe -i "$(TargetPath)" -o "$(SolutionDir)My.Awesome.TypeScript.Project\apps\generated-types.ts"
+if $(ConfigurationName) == Debug $(SolutionDir)My.Awesome.TypeScript.Project\bin\DefinitelyTyped.Net.exe -i "$(TargetPath)" -o "$(SolutionDir)My.Awesome.TypeScript.Project\apps\generated-types.ts"
 ```
 Now you're all set. Every time you build your project, your TypeScript-types will be in sync with your .NET-types.

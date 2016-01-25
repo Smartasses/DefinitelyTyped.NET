@@ -8,11 +8,26 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Release 4.5.1|Any CPU = Release 4.5.1|Any CPU
+		Release 4.5.2|Any CPU = Release 4.5.2|Any CPU
+		Release 4.5|Any CPU = Release 4.5|Any CPU
+		Release 4.6.1|Any CPU = Release 4.6.1|Any CPU
+		Release 4.6|Any CPU = Release 4.6|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release 4.5.1|Any CPU.ActiveCfg = Release 4.5.1|Any CPU
+		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release 4.5.1|Any CPU.Build.0 = Release 4.5.1|Any CPU
+		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release 4.5.2|Any CPU.ActiveCfg = Release 4.5.2|Any CPU
+		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release 4.5.2|Any CPU.Build.0 = Release 4.5.2|Any CPU
+		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release 4.5|Any CPU.ActiveCfg = Release 4.5|Any CPU
+		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release 4.5|Any CPU.Build.0 = Release 4.5|Any CPU
+		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release 4.6.1|Any CPU.ActiveCfg = Release 4.6.1|Any CPU
+		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release 4.6.1|Any CPU.Build.0 = Release 4.6.1|Any CPU
+		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release 4.6|Any CPU.ActiveCfg = Release 4.6|Any CPU
+		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release 4.6|Any CPU.Build.0 = Release 4.6|Any CPU
 		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11B7312B-16B0-4644-AF1B-BE834328D0BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

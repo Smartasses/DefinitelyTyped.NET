@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Newtonsoft.Json.Linq;
 
 namespace DefinitelyTypedNet
 {
@@ -14,7 +13,6 @@ namespace DefinitelyTypedNet
         static TypeScriptConvert()
         {
             Mapping = new ConcurrentDictionary<Type, string>();
-            Mapping.TryAdd(typeof(JToken), Any);
             Mapping.TryAdd(typeof(bool), Boolean);
             Mapping.TryAdd(typeof(void), Void);
             new[]

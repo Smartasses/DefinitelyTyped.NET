@@ -21,7 +21,7 @@ namespace DefinitelyTypedNet
             public string OutputFile { get; set; }
 
 
-            [Option('c', "camelcase", Required = false, HelpText = "Use camelcase (default: false)", Default = true)]
+            [Option('c', "camelcase", Required = false, HelpText = "Use camelcase (default: true)", Default = true)]
             public bool CamelCase { get; set; }
 
             [Option('t', "typemapping", Required = false, HelpText ="Map types to default typescript files using Typename@buildintype",Separator = ';')]
